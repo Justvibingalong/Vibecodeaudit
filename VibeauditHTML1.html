@@ -1,0 +1,912 @@
+Here is the complete, single-file HTML landing page built exactly to your specifications. It includes all CSS, JavaScript, interactive elements, and responsive behaviors in a self-contained file with no external dependencies other than the specified Google Fonts.
+
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeSec — Security Audits for AI-Generated Code</title>
+    <meta name="description" content="Professional security audits for AI-generated codebases. Static code review, interactive HTML deliverables, 2-5 day turnaround.">
+    <meta property="og:title" content="VibeSec — Security Audits for AI-Generated Code">
+    <meta property="og:description" content="Professional security audits for AI-generated codebases. Static code review, interactive HTML deliverables, 2-5 day turnaround.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* DESIGN SYSTEM & CSS VARIABLES */
+        :root {
+            --bg-color: #0A0A0B;
+            --surface: #141416;
+            --surface-elevated: #1C1C1F;
+            --border-default: #27272A;
+            --border-accent: rgba(139, 92, 246, 0.3);
+            --text-primary: #EDEDED;
+            --text-secondary: #A1A1AA;
+            --text-muted: #5C5C5E;
+            --accent: #8B5CF6;
+            --accent-hover: #7C3AED;
+            --accent-glow: rgba(139, 92, 246, 0.15);
+            --success-green: #22C55E;
+            --danger-red: #EF4444;
+
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --font-mono: 'JetBrains Mono', "Fira Code", "SF Mono", "Cascadia Code", monospace;
+            
+            --transition: all 200ms ease;
+            --radius: 8px;
+        }
+
+        /* RESET & BASE */
+        *, *::before, *::after { box-sizing: border-box; }
+        body, h1, h2, h3, p, ul, li { margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3 { line-height: 1.2; font-weight: 600; }
+        h2 { font-size: 2.25rem; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+        
+        .eyebrow {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            font-size: 11px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .mono { font-family: var(--font-mono); }
+        .text-secondary { color: var(--text-secondary); }
+        .text-muted { color: var(--text-muted); }
+
+        /* LAYOUT & CONTAINERS */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section { padding: 100px 0; }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 11, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-default);
+            z-index: 100;
+            transition: background 0.3s ease;
+        }
+        nav.scrolled { background: rgba(10, 10, 11, 0.95); }
+        
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .nav-link:hover { color: var(--text-primary); }
+
+        .mobile-menu-btn {
+            display: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        .btn-secondary:hover {
+            background-color: var(--accent-glow);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-default);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* FOCUS OUTLINE */
+        *:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 72px; /* Nav offset */
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+            z-index: -1;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 .gradient-text {
+            background: linear-gradient(90deg, var(--text-primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .trust-strip {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .trust-strip span:not(:last-child)::after {
+            content: "|";
+            margin-left: 1.5rem;
+            color: var(--border-default);
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px var(--border-default);
+        }
+        .card:hover {
+            background: var(--surface-elevated);
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        /* MODERN PROBLEM SECTION */
+        .section-header { text-align: center; max-width: 65ch; margin: 0 auto 4rem auto; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        
+        .card-icon {
+            width: 40px; height: 40px;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        .card h3 { font-size: 1.125rem; margin-bottom: 0.75rem; }
+        .card p { color: var(--text-secondary); font-size: 0.9375rem; }
+
+        /* BOUNDARIES SECTION */
+        .split-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--surface);
+            border: 1px solid var(--border-accent);
+            border-radius: var(--radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px var(--border-accent);
+            overflow: hidden;
+        }
+        .split-col { padding: 3rem; }
+        .split-col:first-child { border-right: 1px solid var(--border-default); }
+        .split-col h3 { margin-bottom: 2rem; font-size: 1.25rem; }
+        
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+        .list-item:last-child { margin-bottom: 0; }
+        .list-icon { flex-shrink: 0; font-family: var(--font-mono); font-weight: 700; }
+        .icon-success { color: var(--success-green); }
+        .icon-danger { color: var(--danger-red); }
+
+        /* DELIVERABLE SECTION */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+        .feature-list li::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0.5rem;
+            width: 6px; height: 6px;
+            background-color: var(--accent);
+            border-radius: 50%;
+        }
+        .feature-list strong { color: var(--text-primary); }
+
+        /* MOCKUP UI */
+        .mockup {
+            background: #000;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            font-family: var(--font-sans);
+        }
+        .mockup-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-default);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0A0A0B;
+        }
+        .mockup-title { font-family: var(--font-mono); font-size: 0.875rem; }
+        .mockup-score { color: var(--danger-red); font-weight: 600; }
+        .mockup-badges {
+            display: flex; gap: 0.5rem; padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-default);
+            background: #141416;
+        }
+        .badge {
+            font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px;
+            font-family: var(--font-mono);
+        }
+        .badge-critical { background: rgba(239, 68, 68, 0.1); color: var(--danger-red); border: 1px solid rgba(239,68,68,0.2); }
+        .badge-high { background: rgba(249, 115, 22, 0.1); color: #F97316; border: 1px solid rgba(249,115,22,0.2); }
+        .badge-medium { background: rgba(234, 179, 8, 0.1); color: #EAB308; border: 1px solid rgba(234,179,8,0.2); }
+        
+        .mockup-row {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-default);
+            display: flex; justify-content: space-between; align-items: center;
+            background: #0A0A0B;
+        }
+        .mockup-row:last-child { border-bottom: none; }
+        .mockup-row-left { display: flex; gap: 1rem; align-items: center; }
+        .mockup-row-title { font-size: 0.875rem; color: var(--text-primary); }
+        .mockup-row-file { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+        .mockup-checkbox {
+            width: 16px; height: 16px; border: 1px solid var(--border-default); border-radius: 3px;
+        }
+
+        /* PROCESS TIMELINE */
+        .timeline { display: flex; position: relative; gap: 2rem; margin-top: 3rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 24px; left: 0; right: 0;
+            height: 1px;
+            background: var(--border-default);
+            z-index: 0;
+        }
+        .timeline-step { flex: 1; position: relative; z-index: 1; }
+        .step-number {
+            width: 48px; height: 48px;
+            background: var(--surface);
+            border: 1px solid var(--border-accent);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono); font-weight: 700; color: var(--accent);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 0 4px var(--bg-color);
+        }
+        .timeline-step h3 { font-size: 1.125rem; margin-bottom: 0.75rem; }
+        .timeline-step p { color: var(--text-secondary); font-size: 0.9375rem; }
+
+        /* PRICING */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: start; }
+        .pricing-card {
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .pricing-card.featured {
+            border-color: var(--border-accent);
+            background: var(--surface-elevated);
+            box-shadow: 0 0 40px var(--accent-glow), 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px var(--border-accent);
+            position: relative;
+            transform: translateY(-10px);
+        }
+        .pricing-card:not(.featured):hover {
+            border-color: var(--border-accent);
+        }
+        .pricing-badge {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: #fff;
+            padding: 0.25rem 0.75rem; border-radius: 4px;
+            font-family: var(--font-mono); font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .pricing-header { margin-bottom: 2rem; }
+        .pricing-header h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .price { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .turnaround { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); display: block; margin-bottom: 1rem; }
+        .best-for { font-size: 0.875rem; color: var(--text-secondary); }
+        .pricing-features { margin-bottom: 2rem; flex-grow: 1; }
+        .pricing-features li {
+            padding-left: 1.25rem; position: relative; margin-bottom: 0.75rem; font-size: 0.875rem; color: var(--text-secondary);
+        }
+        .pricing-features li::before {
+            content: "✓"; position: absolute; left: 0; color: var(--success-green); font-family: var(--font-mono);
+        }
+        .pricing-card .btn { width: 100%; }
+
+        /* TESTIMONIALS */
+        .testimonial-card { display: flex; flex-direction: column; border-left: 2px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; }
+        .quote { font-size: 1rem; font-style: italic; color: var(--text-primary); margin-bottom: 1.5rem; flex-grow: 1; }
+        .author-name { font-weight: 600; font-size: 0.875rem; }
+        .author-context { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+
+        /* FINAL CTA */
+        .final-cta {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border-default);
+            border-bottom: 1px solid var(--border-default);
+            text-align: center;
+        }
+        .final-cta .container { max-width: 800px; }
+        .final-cta h2 { font-size: 3rem; margin-bottom: 1.5rem; }
+        .final-cta p { font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 2.5rem; }
+        .final-cta .btn { font-size: 1rem; padding: 1rem 2rem; margin-bottom: 1rem; }
+
+        /* FOOTER */
+        footer { padding: 3rem 0; background: var(--bg-color); border-top: 1px solid var(--border-default); }
+        .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .footer-links { display: flex; gap: 1.5rem; font-size: 0.875rem; color: var(--text-secondary); }
+        .footer-links a:hover { color: var(--text-primary); }
+        .footer-bottom { text-align: center; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--border-default); padding-top: 2rem; }
+
+        /* ANIMATIONS & STATES */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes subtlePulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+        .pulse-once { animation: subtlePulse 1.5s ease-out 1s 1; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-smooth { scroll-behavior: auto; }
+            .fade-in { opacity: 1; transform: none; transition: none; }
+            .pulse-once { animation: none; }
+            *, ::before, ::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1199px) {
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 3.5rem; }
+        }
+
+        @media (max-width: 767px) {
+            section { padding: 60px 0; }
+            .grid-3, .grid-2, .pricing-grid, .split-card { grid-template-columns: 1fr; }
+            
+            .hero h1 { font-size: 2.25rem; }
+            .hero p { font-size: 1rem; }
+            .hero-btns { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto 2rem auto; }
+            .trust-strip { flex-direction: column; gap: 0.75rem; align-items: center; }
+            .trust-strip span::after { display: none; }
+
+            .nav-links {
+                display: none;
+                position: absolute; top: 72px; left: 0; right: 0;
+                background: var(--surface);
+                border-bottom: 1px solid var(--border-default);
+                flex-direction: column; padding: 2rem; gap: 1.5rem;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+
+            .split-col:first-child { border-right: none; border-bottom: 1px solid var(--border-default); }
+            .split-col { padding: 2rem; }
+
+            .timeline { flex-direction: column; gap: 3rem; }
+            .timeline::before {
+                top: 0; bottom: 0; left: 24px; width: 1px; height: auto;
+            }
+
+            .pricing-grid { display: flex; flex-direction: column; }
+            .pricing-card.featured { order: -1; transform: none; margin-bottom: 1rem; }
+            
+            .final-cta h2 { font-size: 2rem; }
+            .footer-top { flex-direction: column; gap: 1.5rem; }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body { background: #fff; color: #000; }
+            .hero::before { display: none; }
+            .card, .split-card { border-color: #ccc; box-shadow: none; break-inside: avoid; }
+            .btn { display: none; }
+            nav { display: none; }
+            .hero { height: auto; min-height: auto; padding: 2rem 0; }
+            * { text-shadow: none !important; color: #000 !important; background: transparent !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">[ VibeSec ]</a>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+            <div class="nav-links">
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#sample-report" class="nav-link">Sample Report</a>
+                <a href="#intake" class="btn btn-primary pulse-once">Start Audit &rarr;</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero fade-in">
+        <div class="container">
+            <span class="eyebrow">VULNERABILITY ASSESSMENTS FOR AI-GENERATED CODE</span>
+            <h1>AI writes code at lightspeed.<br>We find the <span class="gradient-text">vulnerabilities</span> it leaves behind.</h1>
+            <p>Professional code audits for AI-assisted codebases. Whether you built it with Cursor, Bolt, Lovable, or raw prompts — we review your architecture, identify common AI-generation flaws, and deliver a prioritized remediation roadmap. Without ever touching your live environment.</p>
+            
+            <div class="hero-btns">
+                <a href="#intake" class="btn btn-primary">Start Intake Form &rarr;</a>
+                <a href="#sample-report" class="btn btn-secondary">View Sample Report</a>
+            </div>
+
+            <div class="trust-strip">
+                <span>&#10003; Zero Production Access Required</span>
+                <span>&#10003; Async Delivery &mdash; No Calls Required</span>
+                <span>&#10003; Interactive HTML Deliverable</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="how-it-works" class="fade-in">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">THE VIBE-CODING REALITY</span>
+                <h2>AI ships fast. It also ships blind spots.</h2>
+                <p class="text-secondary">LLMs are incredible at generating functional prototypes at breakneck speed. But AI models optimize for making the application work, not for protecting user data. They frequently hallucinate configuration settings, expose backend logic, and leave critical infrastructure open to exploitation.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    <h3>Exposed Secrets</h3>
+                    <p>AI tools notoriously leave API keys, database credentials, and environment variables exposed in client-side code where anyone can find them.</p>
+                </div>
+                <div class="card">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    <h3>Broken Access Controls</h3>
+                    <p>We consistently find missing or misconfigured Row Level Security (RLS) in Supabase and Firebase, allowing users to read or mutate data they shouldn't.</p>
+                </div>
+                <div class="card">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 16 16 12 12 8"></polyline>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    <h3>Unprotected Endpoints</h3>
+                    <p>AI generators excel at building APIs but rarely implement rate limiting or proper input validation, leaving your app vulnerable to automated scraping and injection attacks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="fade-in">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">HOW WE OPERATE</span>
+                <h2>The Building Inspector Model.</h2>
+                <p class="text-secondary">We review your codebase, document the vulnerabilities, and provide the exact blueprint your team needs to fix them. We operate with strict boundaries to keep delivery fast and your live environment untouched.</p>
+            </div>
+
+            <div class="split-card">
+                <div class="split-col">
+                    <h3>What We Deliver</h3>
+                    <div class="list-item">
+                        <span class="list-icon icon-success">&#10003;</span>
+                        <div><strong>Interactive Dashboard:</strong> A standalone HTML report mapping every identified vulnerability with severity ratings, code excerpts, and line numbers.</div>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon icon-success">&#10003;</span>
+                        <div><strong>Precision Targeting:</strong> Exact file locations, line numbers, and code excerpts for every issue found.</div>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon icon-success">&#10003;</span>
+                        <div><strong>Clear Explanations:</strong> Plain-English breakdowns of why each vulnerability matters to your business and your users.</div>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon icon-success">&#10003;</span>
+                        <div><strong>Remediation Roadmap:</strong> Prioritized guidance and localized code examples showing exactly how to resolve each issue.</div>
+                    </div>
+                </div>
+                <div class="split-col">
+                    <h3>What We Never Do</h3>
+                    <div class="list-item">
+                        <span class="list-icon icon-danger">&#10007;</span>
+                        <div><strong>No Production Access:</strong> We analyze your source code repository, not your live servers.</div>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon icon-danger">&#10007;</span>
+                        <div><strong>No Code Modifications:</strong> We do not commit code, open pull requests, or alter your files in any way.</div>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon icon-danger">&#10007;</span>
+                        <div><strong>No Live Testing:</strong> We do not perform active penetration testing against your running infrastructure.</div>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon icon-danger">&#10007;</span>
+                        <div><strong>Assessments, Not Certifications:</strong> Our deliverable is an actionable technical review designed for your engineering team. We do not conduct SOC2 or HIPAA compliance audits, nor do we issue regulatory certificates.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sample-report" class="fade-in">
+        <div class="container grid-2">
+            <div>
+                <span class="eyebrow">THE DELIVERABLE</span>
+                <h2>Not just a PDF.<br>A working remediation tool.</h2>
+                <p class="text-secondary" style="margin-bottom: 2rem;">Most audits end with a static document that gathers dust. We deliver a standalone, interactive dashboard designed to be actively used by your engineering team. No logins, no subscriptions — just a single, offline-capable file you own forever.</p>
+                
+                <ul class="feature-list">
+                    <li><strong>Progressive Disclosure:</strong> An executive summary at the top for founders, with deeply technical code snippets and line numbers that expand on demand for developers.</li>
+                    <li><strong>Interactive Tracking:</strong> A built-in "Mark as fixed" checklist that saves locally in the browser, turning the report into a live workflow tracker your team actually uses.</li>
+                    <li><strong>Contextual Remediation:</strong> Side-by-side before/after code examples demonstrating exactly how to patch each identified vulnerability.</li>
+                    <li><strong>The Full Bundle:</strong> Every audit includes the interactive HTML dashboard, a clean PDF export for stakeholders, and a Markdown summary ready to drop directly into Jira, Linear, or GitHub Issues.</li>
+                </ul>
+            </div>
+            
+            <div class="mockup" aria-hidden="true">
+                <div class="mockup-header">
+                    <span class="mockup-title">VibeSec_Report.html</span>
+                    <span class="mockup-score">Risk Score: 7.4/10</span>
+                </div>
+                <div class="mockup-badges">
+                    <span class="badge badge-critical">Critical × 2</span>
+                    <span class="badge badge-high">High × 3</span>
+                    <span class="badge badge-medium">Medium × 4</span>
+                </div>
+                <div class="mockup-row">
+                    <div class="mockup-row-left">
+                        <span class="badge badge-critical">C</span>
+                        <div>
+                            <div class="mockup-row-title">Exposed Service Role Key</div>
+                            <div class="mockup-row-file">src/lib/supabase.ts:14</div>
+                        </div>
+                    </div>
+                    <div class="mockup-checkbox"></div>
+                </div>
+                <div class="mockup-row">
+                    <div class="mockup-row-left">
+                        <span class="badge badge-critical">C</span>
+                        <div>
+                            <div class="mockup-row-title">Missing RLS Policy on Users Table</div>
+                            <div class="mockup-row-file">supabase/migrations/001.sql:42</div>
+                        </div>
+                    </div>
+                    <div class="mockup-checkbox" style="background: var(--success-green); border-color: var(--success-green); display: flex; align-items:center; justify-content:center;">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                </div>
+                <div class="mockup-row">
+                    <div class="mockup-row-left">
+                        <span class="badge badge-high">H</span>
+                        <div>
+                            <div class="mockup-row-title">Unvalidated Stripe Webhook</div>
+                            <div class="mockup-row-file">app/api/webhooks/route.ts:28</div>
+                        </div>
+                    </div>
+                    <div class="mockup-checkbox"></div>
+                </div>
+                 <div class="mockup-row">
+                    <div class="mockup-row-left">
+                        <span class="badge badge-medium">M</span>
+                        <div>
+                            <div class="mockup-row-title">Missing Rate Limit on Auth</div>
+                            <div class="mockup-row-file">app/api/login/route.ts:12</div>
+                        </div>
+                    </div>
+                    <div class="mockup-checkbox"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="fade-in">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">THE PROCESS</span>
+                <h2>From repository to roadmap in 5 days.</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="step-number">01</div>
+                    <h3>Scope &amp; Ingest</h3>
+                    <p>You complete a 3-minute intake form detailing your tech stack and provide read-only access to your repository or a zipped file. We confirm scope and begin immediately.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">02</div>
+                    <h3>Analyze &amp; Review</h3>
+                    <p>We run your codebase through our proprietary AI-vulnerability taxonomy — built specifically for the failure patterns of AI-generated code — and review every finding for relevance and accuracy before it reaches your report.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">03</div>
+                    <h3>Deliver &amp; Handoff</h3>
+                    <p>On delivery day, you receive the full deliverable bundle and a prioritized remediation roadmap. A 48-hour async Q&A window is included for any questions about the findings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="fade-in">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">PRICING</span>
+                <h2>Straightforward scoping for modern codebases.</h2>
+                <p class="text-secondary">Flat-rate pricing based on the complexity and size of your application. No retainers, no sales calls. Just pick your tier and let's get to work.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="card pricing-card">
+                    <div class="pricing-header">
+                        <h3>Starter Audit</h3>
+                        <div class="price">$799</div>
+                        <span class="turnaround">2–3 Business Days</span>
+                        <div class="best-for">Best for: Pre-launch prototypes, weekend projects, and simple single-purpose apps under 50 files.</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Standard vulnerability assessment</li>
+                        <li>Interactive HTML dashboard</li>
+                        <li>PDF + Markdown exports</li>
+                        <li>Async findings delivery</li>
+                    </ul>
+                    <a href="#intake" class="btn btn-outline">Get Started &rarr;</a>
+                </div>
+
+                <div class="card pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Production Audit</h3>
+                        <div class="price">$1,999</div>
+                        <span class="turnaround">3–5 Business Days</span>
+                        <div class="best-for">Best for: Live SaaS products, apps with active users, or architectures with external database integrations (Supabase, Firebase).</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Deep-dive architecture review</li>
+                        <li>Advanced authentication + authorization checks</li>
+                        <li>API endpoint analysis</li>
+                        <li>Prioritized remediation roadmap</li>
+                        <li>48-hour async email support</li>
+                    </ul>
+                    <a href="#intake" class="btn btn-primary">Get Started &rarr;</a>
+                </div>
+
+                <div class="card pricing-card">
+                    <div class="pricing-header">
+                        <h3>Full Stack Assessment</h3>
+                        <div class="price">Starts at $3,500</div>
+                        <span class="turnaround">Custom Timeline</span>
+                        <div class="best-for">Best for: Large repositories, complex multi-agent AI systems, or applications handling sensitive user data.</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Custom scoping session</li>
+                        <li>Third-party dependency review</li>
+                        <li>Optional follow-up remediation reviews</li>
+                        <li>Priority delivery</li>
+                    </ul>
+                    <a href="#intake" class="btn btn-outline">Get a Quote &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="fade-in">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">TRUSTED BY FOUNDERS</span>
+                <h2>What founders say after their audit.</h2>
+            </div>
+
+            <div class="grid-3">
+                <div class="card testimonial-card">
+                    <div class="quote">"We were hours away from launching with our Supabase service_role key exposed in the frontend bundle. The report caught it immediately and told us exactly how to fix it."</div>
+                    <div class="author-name">[Founder Name]</div>
+                    <div class="author-context">[App Type] built with Lovable</div>
+                </div>
+                <div class="card testimonial-card">
+                    <div class="quote">"The interactive report was genuinely impressive — our dev team used it like a Kanban board, checking off fixes as they went. Worth every dollar before our Series A."</div>
+                    <div class="author-name">[Founder Name]</div>
+                    <div class="author-context">[App Type] built with Cursor</div>
+                </div>
+                <div class="card testimonial-card">
+                    <div class="quote">"Clear, specific, actionable. Not a vague list of warnings — actual file locations, line numbers, and code examples. We fixed everything in a weekend."</div>
+                    <div class="author-name">[Founder Name]</div>
+                    <div class="author-context">[App Type] built with Bolt.new</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="intake" class="final-cta fade-in">
+        <div class="container">
+            <h2>Ship your AI-generated code with confidence.</h2>
+            <p>Don't let a hallucinated configuration or an exposed API key sink your launch. Submit your tech stack details and get your comprehensive audit delivered in days.</p>
+            <button class="btn btn-primary mono" style="font-size: 1.125rem;">Start Intake Form &rarr;</button>
+            <div class="mono text-muted" style="font-size: 0.75rem; margin-top: 1rem;">Flat-rate pricing. No calls required. Delivery in 2–5 business days.</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="logo">[ VibeSec ]</div>
+                <div class="footer-links">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Contact Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 VibeSec. All rights reserved. Security assessments are point-in-time static code reviews and do not constitute penetration testing, compliance audits, or security certifications.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                menuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+            });
+
+            // Close mobile menu on link click
+            document.querySelectorAll('.nav-link, .nav-links .btn').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    menuBtn.textContent = '☰';
+                });
+            });
+
+            // Sticky Nav Background on Scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Intersection Observer for scroll-triggered fade-ins
+            // Respects prefers-reduced-motion via CSS, but we keep the logic clean here
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
+
+```
